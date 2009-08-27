@@ -2,93 +2,21 @@
     <%= error_messages_for 'deliverable' %>
     <div class="box">
       <div class="splitcontentleft">
-        <p><%= f.text_field :subject, :required => true %></p>
+        <p><%= f.text_field :subject, :label => 'SLA - Summary', :required => true %></p>
+        <p><%= f.text_field :budget, :label => 'Amount', :required => true, :size => 8 %></p>
         <p><%= f.text_area :description,
           :cols => 60,
           :rows => (@deliverable.description.blank? ? 10 : [[10, @deliverable.description.length / 50].max, 100].min),
           :accesskey => accesskey(:edit),
         :class => 'wiki-edit' %></p>
-        <p><%= f.text_field :due, :size => 10 %><%= calendar_for('deliverable_due') %></p>
+        <p><%= f.text_field :due, :required => true, :size => 10 %><%= calendar_for('deliverable_due') %></p>
+      </div>
 
+      <div class="splitcontentright">
         <p><%= f.check_box(:project_manager_signoff) %></p>
         <p><%= f.check_box(:client_signoff) %></p>
       </div>
 
-      <div class="splitcontentright">
-        <table>
-
-          <tr>
-            <td>
-              <label for="deliverable_type"><%= l(:label_fixed_cost) %></label>
-            </td>
-            <td>
-              <%= check_box(:deliverable, :type, {}, FixedDeliverable.name, HourlyDeliverable.name) %>
-              <%= observe_field('deliverable_type', :function => "new Budget.changeType();") %>
-            </td>
-            <td class="calculation-column">
-            </td>
-          </tr>
-
-          <tr class="budget-hourly">
-            <td>
-              <label for="deliverable_cost_per_hour"><%= l(:field_cost_per_hour)%></label>
-            </td>
-            <td>
-              <%= text_field :deliverable, :cost_per_hour, :size => 7 %>
-            </td>
-            <td>
-            </td>
-          </tr>
-
-          <tr class="budget-hourly">
-            <td>
-              <label for="deliverable_total_hours"><%= l(:field_total_hours) %></label>
-            </td>
-            <td>
-              <%= text_field :deliverable, :total_hours, :size => 7 %>
-            </td>
-            <td class="calculation-column">
-              <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'variableCost') %>
-            </td>
-          </tr>
-
-          <tr class="budget-fixed" style="display:none;">
-            <td>
-              <label for="deliverable_fixed_cost"><%= l(:field_fixed_cost) %></label>
-            </td>
-            <td>
-              <%= text_field :deliverable, :fixed_cost, :size => 7 %>
-            </td>
-            <td class="calculation-column">
-              <%= content_tag(:span, 0, :class => "budget-calculation", :id => 'fixedCost') %>
-            </td>
-          </tr>
-
-          <%= field_with_budget_observer_and_totals(f, @deliverable, :overhead, :overhead_percent, @settings[:budget_non_billable_overhead]) %>
-          <%= field_with_budget_observer_and_totals(f, @deliverable, :materials, :materials_percent, @settings[:budget_materials]) %>
-          <%= field_with_budget_observer_and_totals(f, @deliverable, :profit, :profit_percent, @settings[:budget_profit]) %>
-
-          <tr class="total-budget">
-            <td><label><%= l(:field_budget) %></label></td>
-            <td></td>
-            <td class="calculation-column">
-              <%= content_tag(:span, 0, :id => 'total-budget-calculation', :class => "budget-calculation") %>
-            </td>
-          </tr>
-          
-        </table>
-        <%= f.hidden_field :budget %>
-        <%= observe_form('deliverable-form', :function => "new Budget.updateAmounts();", :on => 'blur') %>
-
-        
-      </div>
-      <script type="text/javascript">new Budget.changeType();</script>
-      <script type="text/javascript">new Budget.updateAmounts();</script>
-      <script type="text/javascript">
-        new PeriodicalExecuter(function() {
-            Budget.updateAmounts();
-        }, 5);
-      </script>
       <div style="clear:both;"> </div>
 
     </div>
@@ -101,11 +29,4 @@
                          :complete => "Element.scrollTo('preview')"
                        }, :accesskey => accesskey(:preview) %>
 
-<%# Same as `wikitoolbar_for 'deliverable_description'` but without the help link %>
-<%= javascript_include_tag('jstoolbar/jstoolbar') %>
-<%= javascript_include_tag("jstoolbar/lang/jstoolbar-#{current_language}") %>
-<%= javascript_tag("var toolbar = new jsToolBar($('deliverable_description'));toolbar.draw();") %>
-
-
-<div id="preview" class="wiki"></div>
 </fieldset>

@@ -2,23 +2,12 @@
 
 <table>
   <% if allowed_management? %>
-  <tr class="total">
+  <tr>
     <td>
       <%= l(:field_budget) %>
     </td>
     <td class="calculation-column">
       <%= h number_to_currency(budget.budget, :precision => 0) %>
-    </td>
-  </tr>
-  <% end %>
-
-  <% if allowed_management? %>
-  <tr>
-    <td>
-      <%= l(:label_labor_budget) %>
-    </td>
-    <td class="calculation-column">
-      <%= h number_to_currency(budget.labor_budget, :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -54,28 +43,6 @@
     </td>
   </tr>
 
-  <% if allowed_management? %>
-  <tr>
-    <td>
-      <%= l(:label_budget_score) %>
-    </td>
-    <td class="calculation-column">
-      <%= h budget.score %>
-    </td>
-  </tr>
-  <% end %>
-
-  <% if allowed_management? %>
-  <tr>
-    <td>
-      <%= l(:label_overruns) %>
-    </td>
-    <td class="calculation-column">
-      <%= h number_to_currency(budget.overruns, :precision => 0) %>
-    </td>
-  </tr>
-  <% end %>
-
   <% if allowed_management? && budget.amount_missing_on_deliverables > 0%>
   <tr>
     <td>
@@ -106,29 +73,10 @@
 
   <tr>
     <td>
-      <%= l(:label_next_due_date) %>
-    </td>
-    <td class="calculation-column">
-      <%= h distance_of_time_in_words_to_now(budget.next_due_date) if budget.next_due_date %>
-    </td>
-  </tr>
-  <tr>
-    <td>
       <%= l(:label_completion) %>
     </td>
     <td class="calculation-column">
       <%= h distance_of_time_in_words_to_now(budget.final_due_date) if budget.final_due_date %>
     </td>
   </tr>
-
-  <% if allowed_management? %>
-  <tr>
-    <td>
-      <%= l(:label_potential_profit) %>
-    </td>
-    <td class="calculation-column">
-      <%= h number_to_currency(budget.profit, :precision => 0) %>
-    </td>
-  </tr>
-  <% end %>
 </table>

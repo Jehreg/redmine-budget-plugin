@@ -7,13 +7,13 @@ en:
   field_materials: Material costs
   label_materials: "Materials: "
   field_profit: Profit
-  field_budget: Total Budget
-  label_budget: "Total Budget: "
+  field_budget: Budget
+  label_budget: "Budget: "
   field_fixed_cost: Fixed Bid
   field_project_manager_signoff: Project Manager Signoff
   field_client_signoff: Client Signoff
-  field_deliverable: Deliverable
-  field_deliverable_subject: Deliverable
+  field_deliverable: Agreement
+  field_deliverable_subject: Agreement
   field_due: Due Date
   label_member_rate: Rate ($)
   message_updated_issues: Updated %d issues
@@ -21,19 +21,19 @@ en:
   label_non_billable_overhead: Non billable overhead
   label_materials: Materials
   label_profit: Profit
-  label_new_deliverable: New deliverable
+  label_new_deliverable: New agreement 
   label_fixed_cost: Fixed cost
   caption_due: Due
   caption_progress: Progress
-  caption_subject: Subject
+  caption_subject: Agreement 
   caption_score: Score
   caption_budget: Budget
   caption_labor_budget: Labor Budget
   caption_spent: Spent
-  label_update_deliverable: Update Deliverable
+  label_update_deliverable: Update Agreement
   label_labor_budget: "Labor Budget: "
-  label_labor_budget_spent: "Labor Budget Spent: "
-  label_labor_budget_remaining: "Labor Budget Remaining: "
+  label_labor_budget_spent: "Spent: "
+  label_labor_budget_remaining: "Remaining: "
   label_progress: "Progress: "
   label_budget_score: "Budget Score: "
   label_overruns: "Overruns: "
@@ -46,4 +46,4 @@ en:
   label_fixed_amount: "Fixed Amount: "
   label_hours_estimated: "Hours Estimated: "
   label_hours_used: "Hours Used: "
-  label_toggle_all: "Expand all deliverable rows"
+  label_toggle_all: "Expand all agreement rows"
