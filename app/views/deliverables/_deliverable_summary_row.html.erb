@@ -1,5 +1,6 @@
       <tr id="deliverable-<%= deliverable.id %>" class="deliverable <%= css %>">
         <td class="actions">
+          <%= link_to(l(:label_issue_plural), :action => 'issues', :id => @project.id, :deliverable_id => deliverable.id) -%>
           <%= link_to(l(:button_edit), :action => 'edit', :id => @project.id, :deliverable_id => deliverable.id) if allowed_management? -%>
           <%= link_to(l(:button_delete), { :action => 'destroy', :id => @project.id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure)) if allowed_management? %>
         </td>

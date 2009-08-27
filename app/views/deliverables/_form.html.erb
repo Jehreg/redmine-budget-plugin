@@ -4,11 +4,6 @@
       <div class="splitcontentleft">
         <p><%= f.text_field :subject, :label => 'SLA - Summary', :required => true %></p>
         <p><%= f.text_field :budget, :label => 'Amount', :required => true, :size => 8 %></p>
-        <p><%= f.text_area :description,
-          :cols => 60,
-          :rows => (@deliverable.description.blank? ? 10 : [[10, @deliverable.description.length / 50].max, 100].min),
-          :accesskey => accesskey(:edit),
-        :class => 'wiki-edit' %></p>
         <p><%= f.text_field :due, :required => true, :size => 10 %><%= calendar_for('deliverable_due') %></p>
       </div>
 
