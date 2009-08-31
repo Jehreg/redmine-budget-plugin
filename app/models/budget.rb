@@ -124,6 +124,10 @@ class Budget
 
     missing_issues = all_issues - deliverable_issues
 
+    if missing_issues.any?
+      debugger
+    end
+
     time_logs = missing_issues.collect(&:time_entries).flatten
     
     return time_logs.collect(&:cost).sum

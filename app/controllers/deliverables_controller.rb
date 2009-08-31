@@ -1,7 +1,8 @@
 class DeliverablesController < ApplicationController
   unloadable
   layout 'base'
-  before_filter :find_project, :authorize, :get_settings
+  before_filter :find_project, :get_settings
+  before_filter :authorize, :except => :summary
 
   helper :sort
   include SortHelper
@@ -127,9 +128,26 @@ class DeliverablesController < ApplicationController
     redirect_to :action => 'index', :id => @project.id
   end
   
+  def summary
+    sort_init "#{Deliverable.table_name}.id", "desc"
+    sort_update 'id' => "#{Deliverable.table_name}.id"
+    @deliverable_count = Deliverable.count()
+    @deliverable_pages = Paginator.new self, @deliverable_count, per_page_option, params['page']
+    @deliverables = Deliverable.find(:all, 
+                                     { 
+                                       :limit => per_page_option,
+                                       :offset => @deliverable_pages.current.offset
+                                     }.merge(sort_order)
+                                     )
+
+    @deliverables = sort_if_needed @deliverables
+  end
+
   private
   def find_project
-    @project = Project.find(params[:id])
+    if params[:id]
+      @project = Project.find(params[:id])
+    end
   end
   
   def get_settings
@@ -165,5 +183,4 @@ class DeliverablesController < ApplicationController
       return deliverables
     end
   end
-  
 end
