@@ -15,10 +15,10 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      <%= l(:label_labor_budget_spent) %>
+      <%= l(:label_labor_budget_remaining) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.spent, :precision => 0) %>
+      <%= h number_to_currency(budget.labor_budget_left, :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -26,10 +26,21 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      <%= l(:label_labor_budget_remaining) %>
+      Accounted
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.labor_budget_left, :precision => 0) %>
+      <%= h number_to_currency(budget.spent, :precision => 0) %>
+    </td>
+  </tr>
+  <% end %>
+
+  <% if allowed_management? && budget.amount_missing_on_deliverables > 0%>
+  <tr>
+    <td>
+      <%= link_to('Unaccounted:', :action => 'issues', :id => @project.id, :deliverable_id => :none) %>
+    </td>
+    <td class="calculation-column">
+      <%= h number_to_currency(budget.amount_missing_on_deliverables, :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -42,17 +53,6 @@
       <%= h number_to_percentage(budget.progress, :precision => 0) %>
     </td>
   </tr>
-
-  <% if allowed_management? && budget.amount_missing_on_deliverables > 0%>
-  <tr>
-    <td>
-      <%= l(:label_missing_on) %> <%= link_to('Deliverables:', :action => 'issues', :id => @project.id, :deliverable_id => :none) %>
-    </td>
-    <td class="calculation-column">
-      <%= h number_to_currency(budget.amount_missing_on_deliverables, :precision => 0) %>
-    </td>
-  </tr>
-  <% end %>
 
   <% if allowed_management? && budget.amount_missing_on_issues > 0 %>
   <tr>
