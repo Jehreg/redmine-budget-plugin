@@ -24,13 +24,17 @@ en:
   label_new_deliverable: New agreement 
   label_fixed_cost: Fixed cost
   caption_due: Due
+  caption_due: Due
   caption_progress: Progress
   caption_subject: Agreement 
+  caption_number: Number
   caption_score: Score
   caption_budget: Budget
   caption_labor_budget: Labor Budget
   caption_spent: Spent
   label_update_deliverable: Update Agreement
+  label_spent: "Spent: "
+  label_remaining: "Remaining: "
   label_labor_budget: "Labor Budget: "
   label_labor_budget_spent: "Spent: "
   label_labor_budget_remaining: "Remaining: "

@@ -15,10 +15,10 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      <%= l(:label_labor_budget_remaining) %>
+      <%= l(:label_spent) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.labor_budget_left, :precision => 0) %>
+      <%= h number_to_currency(budget.spent, :precision => 0) %>
     </td>
   </tr>
   <% end %>
@@ -26,13 +26,14 @@
   <% if allowed_management? %>
   <tr>
     <td>
-      Accounted
+      <%= l(:label_remaining) %>
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.spent, :precision => 0) %>
+      <%= h number_to_currency(budget.remaining, :precision => 0) %>
     </td>
   </tr>
   <% end %>
+
 
   <% if allowed_management? && budget.amount_missing_on_deliverables > 0%>
   <tr>
@@ -44,39 +45,4 @@
     </td>
   </tr>
   <% end %>
-
-  <tr>
-    <td>
-      <%= l(:label_progress) %>
-    </td>
-    <td class="calculation-column">
-      <%= h number_to_percentage(budget.progress, :precision => 0) %>
-    </td>
-  </tr>
-
-  <% if allowed_management? && budget.amount_missing_on_issues > 0 %>
-  <tr>
-    <td>
-      <%= l(:label_missing_on) %> <%= link_to('Issues:', 
-          :controller => 'timelog',
-          :action => 'details', 
-          :project_id => @project.id,
-          :sort_key => 'issue_id',
-          :sort_order => 'asc') %>
-
-    </td>
-    <td class="calculation-column">
-      <%= h number_to_currency(budget.amount_missing_on_issues, :precision => 0) %>
-    </td>
-  </tr>
-  <% end %>
-
-  <tr>
-    <td>
-      <%= l(:label_completion) %>
-    </td>
-    <td class="calculation-column">
-      <%= h distance_of_time_in_words_to_now(budget.final_due_date) if budget.final_due_date %>
-    </td>
-  </tr>
 </table>

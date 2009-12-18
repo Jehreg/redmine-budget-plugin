@@ -2,7 +2,8 @@
     <%= error_messages_for 'deliverable' %>
     <div class="box">
       <div class="splitcontentleft">
-        <p><%= f.text_field :subject, :label => 'SLA - Summary', :required => true %></p>
+        <p><%= f.text_field :subject, :label => 'Subject', :required => true %></p>
+        <p><%= f.text_field :number, :label => 'Number', :required => true %></p>
         <p><%= f.text_field :budget, :label => 'Amount', :required => true, :size => 8 %></p>
         <p><%= f.text_field :due, :required => true, :size => 10 %><%= calendar_for('deliverable_due') %></p>
       </div>

@@ -71,6 +71,10 @@ class Budget
     return self.labor_budget - self.spent
   end
 
+  def remaining
+    return self.budget - self.spent
+  end
+
   # Amount spent over the budget
   def overruns
     if self.left >= 0
