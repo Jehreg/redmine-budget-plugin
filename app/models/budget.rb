@@ -123,11 +123,6 @@ class Budget
     deliverable_issues = self.project.issues.find(:all, :conditions => ["deliverable_id IN (?)", self.deliverables.collect(&:id)])
 
     missing_issues = all_issues - deliverable_issues
-
-    if missing_issues.any?
-      debugger
-    end
-
     time_logs = missing_issues.collect(&:time_entries).flatten
     
     return time_logs.collect(&:cost).sum
