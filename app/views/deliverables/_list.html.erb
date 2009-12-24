@@ -4,10 +4,9 @@
       <%= content_tag('th',l(:label_project)) %>
       <%= content_tag('th',l(:caption_subject)) %>
       <%= content_tag('th',l(:caption_number)) %>
+      <%= content_tag('th',l(:caption_type)) %>
       <%= content_tag('th',l(:caption_budget)) %>
       <%= content_tag('th',l(:caption_spent)) %>
-      <%= content_tag('th',l(:caption_due)) %>
-      <%= content_tag('th',l(:caption_progress)) %>
       <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_list_header, { }) %>
     </tr></thead>
     <tbody>

@@ -8,9 +8,8 @@
         <%= content_tag(:td, link_to(deliverable.project.name, "/projects/#{deliverable.project.id}")) %>
         <%= content_tag(:td, link_to(h(deliverable.subject), "/deliverables/edit/#{deliverable.project.id}?deliverable_id=#{deliverable.id}"), :class => 'subject') %>
         <%= content_tag(:td, h(deliverable.number)) %>
+        <%= content_tag(:td, h(deliverable.category)) %>
         <%= content_tag(:td, number_to_currency(deliverable.budget || 0.0, :precision => 0), :class => 'budget') %>
         <%= content_tag(:td, number_to_currency(deliverable.spent, :precision => 0), :class => 'spent') %>
-        <%= content_tag(:td, format_date(deliverable.due), :class => 'due_date') %>
-        <%= content_tag(:td, progress_bar(deliverable.progress, :width => '100%', :class => 'done_ratio')) %>
         <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_summary_row, { :deliverable => deliverable }) %>
     </tr>
