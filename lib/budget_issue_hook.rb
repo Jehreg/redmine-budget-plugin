@@ -23,7 +23,7 @@ class BudgetIssueHook  < Redmine::Hook::ViewListener
   #
   def view_issues_form_details_bottom(context = { })
     if context[:project].module_enabled?('budget_module')
-      select = context[:form].select :deliverable_id, Deliverable.find_all_by_project_id(context[:project], :order => 'subject ASC').collect { |d| [d.subject, d.id] }, :include_blank => true 
+      select = context[:form].select :deliverable_id, context[:project].ancestor_deliverables.collect { |d| ["#{d.project.name} - #{d.subject}", d.id] }, :include_blank => true 
       return "<p>#{select}</p>"
     else
       return ''
@@ -40,7 +40,7 @@ class BudgetIssueHook  < Redmine::Hook::ViewListener
       select = select_tag('deliverable_id',
                                content_tag('option', l(:label_no_change_option), :value => '') +
                                content_tag('option', l(:label_none), :value => 'none') +
-                               options_from_collection_for_select(Deliverable.find_all_by_project_id(context[:project].id, :order => 'subject ASC'), :id, :subject))
+                               options_for_select(context[:project].ancestor_deliverables.collect { |d| ["#{d.project.name} - #{d.subject}", d.id] }))
     
       return content_tag(:p, "<label>#{l(:field_deliverable)}: " + select + "</label>")
     else

@@ -9,21 +9,25 @@ class DeliverablesController < ApplicationController
 
   # Main deliverable list
   def index
-    sort_init "#{Deliverable.table_name}.id", "desc"
-    sort_update 'id' => "#{Deliverable.table_name}.id"
-
-    @deliverable_count = Deliverable.count(:conditions => { :project_id => @project.id})
+    @deliverable_count = Deliverable.count(:all, 
+      { 
+       :include => :project,
+       :conditions => @project.project_condition(Setting.display_subprojects_issues?),
+      }
+    )
     @deliverable_pages = Paginator.new self, @deliverable_count, per_page_option, params['page']
-    @deliverables = Deliverable.find(:all, 
-                                     { 
-                                       :conditions => { :project_id => @project.id},
-                                       :limit => per_page_option,
-                                       :offset => @deliverable_pages.current.offset
-                                     }.merge(sort_order)
-                                     )
 
-    @deliverables = sort_if_needed @deliverables
-    
+    @deliverables = Deliverable.find(:all, 
+      { 
+       :include => :project,
+       :conditions => @project.project_condition(Setting.display_subprojects_issues?),
+       :limit => per_page_option,
+       :offset => @deliverable_pages.current.offset,
+       :order => 'projects.name, deliverables.subject'
+      }
+    )
+
+
     @deliverable = Deliverable.new
 
     @budget = Budget.new(@project.id)
