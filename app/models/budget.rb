@@ -60,6 +60,10 @@ class Budget
   def spent
     self.deliverables.collect(&:spent).delete_if { |d| d.blank?}.inject { |sum, n| sum + n } || 0.0
   end
+
+  def invoiced
+    self.deliverables.collect(&:invoiced).delete_if { |d| d.blank?}.inject { |sum, n| sum + n } || 0.0
+  end
   
   # Amount of budget left on the deliverables
   def left

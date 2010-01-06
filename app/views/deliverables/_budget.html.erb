@@ -1,48 +1,39 @@
 <h2 class="title"><%= l(:budget_title) %></h2>
 
 <table>
-  <% if allowed_management? %>
   <tr>
     <td>
-      <%= l(:field_budget) %>
+      <%= l(:budget) %>:
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.budget, :precision => 0) %>
+      <%= h(number_to_currency(15, :precision => 2, :unit => '$')) %>
     </td>
   </tr>
-  <% end %>
 
-  <% if allowed_management? %>
   <tr>
     <td>
-      <%= l(:label_spent) %>
+      <%= l(:spent) %>:
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.spent, :precision => 0) %>
+      <%= number_to_currency budget.spent %>
     </td>
   </tr>
-  <% end %>
 
-  <% if allowed_management? %>
   <tr>
     <td>
-      <%= l(:label_remaining) %>
+      <%= l(:remaining) %>:
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.remaining, :precision => 0) %>
+      <%= number_to_currency budget.remaining %>
     </td>
   </tr>
-  <% end %>
 
-
-  <% if allowed_management? && budget.amount_missing_on_deliverables > 0%>
   <tr>
     <td>
-      <%= link_to('Unaccounted:', :action => 'issues', :id => @project.id, :deliverable_id => :none) %>
+      <%= l(:invoiced) %>:
     </td>
     <td class="calculation-column">
-      <%= h number_to_currency(budget.amount_missing_on_deliverables, :precision => 0) %>
+      <%= number_to_currency budget.invoiced %>
     </td>
   </tr>
-  <% end %>
 </table>

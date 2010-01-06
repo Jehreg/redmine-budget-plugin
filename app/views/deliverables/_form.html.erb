@@ -4,11 +4,19 @@
       <div class="splitcontentleft">
         <p><%= f.text_field :subject, :label => 'Subject', :required => true %></p>
         <p><%= f.text_field :number, :label => 'Number', :required => true %></p>
-        <p><%= f.text_field :budget, :label => 'Amount', :required => true, :size => 8 %></p>
+        <p><%= f.text_field :budget, :label => 'Amount', :required => true %></p>
+        <p><%= f.text_field :invoiced, :label => 'Invoiced' %></p>
+
         <p>
-          <%= f.select :category, options_for_select(['Change', 'Sustain']), :label => 'Type' %>
+          <%= f.select :category, 
+            options_for_select(['Change', 'Sustain']), 
+            :label => 'Type' %>
         </p>
-        <p><%= f.text_field :due, :required => true, :size => 10 %><%= calendar_for('deliverable_due') %></p>
+
+        <p>
+          <%= f.text_field :due, :required => true, :size => 10 %>
+          <%= calendar_for('deliverable_due') %>
+        </p>
       </div>
 
       <div class="splitcontentright">
@@ -21,11 +29,13 @@
     </div>
     <%= mode == :create ? submit_tag(l(:button_create)) : submit_tag(l(:button_update)) %>
     <%= link_to_remote l(:label_preview), 
-                       { :url => { :controller => 'deliverables', :action => 'preview', :id => @project },
-                         :method => 'post',
-                         :update => 'preview',
-                         :with => "Form.serialize('deliverable-form')",
-                         :complete => "Element.scrollTo('preview')"
-                       }, :accesskey => accesskey(:preview) %>
+      { 
+        :url => { :controller => 'deliverables', :action => 'preview', :id => @project },
+        :method => 'post',
+        :update => 'preview',
+        :with => "Form.serialize('deliverable-form')",
+        :complete => "Element.scrollTo('preview')"
+      }, 
+      :accesskey => accesskey(:preview) %>
 
 </fieldset>
