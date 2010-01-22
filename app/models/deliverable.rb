@@ -39,9 +39,10 @@ class Deliverable < ActiveRecord::Base
     return self.progress - self.budget_ratio
   end
   
-  # Amount spent.  Virtual accessor that is overriden by subclasses.
   def spent
-    0 
+    return 0 unless self.issues.size > 0
+    time_logs = self.issues.collect(&:time_entries).flatten
+    time_logs.collect(&:cost).sum 
   end
   
   # Percentage of the deliverable that is compelte based on the progress of the
