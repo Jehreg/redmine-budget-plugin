@@ -3,7 +3,7 @@
 <table>
   <tr>
     <td>
-      <%= l(:budget) %>:
+      <%= l(:label_budget) %>:
     </td>
     <td class="calculation-column">
       <%= h(number_to_currency(15, :precision => 2, :unit => '$')) %>
@@ -12,7 +12,7 @@
 
   <tr>
     <td>
-      <%= l(:spent) %>:
+      <%= l(:label_spent) %>:
     </td>
     <td class="calculation-column">
       <%= number_to_currency budget.spent %>
@@ -21,7 +21,7 @@
 
   <tr>
     <td>
-      <%= l(:remaining) %>:
+      <%= l(:label_remaining) %>:
     </td>
     <td class="calculation-column">
       <%= number_to_currency budget.remaining %>
@@ -30,7 +30,7 @@
 
   <tr>
     <td>
-      <%= l(:invoiced) %>:
+      <%= l(:label_invoiced) %>:
     </td>
     <td class="calculation-column">
       <%= number_to_currency budget.invoiced %>
