@@ -18,7 +18,6 @@
   <p class="nodata"><%= l(:label_no_data) %></p>
 <% else %>
   <%= render :partial => 'list', :locals => { :deliverables => @deliverables} %>
-  <p class="pagination"><%= pagination_links_full @deliverable_pages, @deliverable_count %></p>
 </div>
 <% end %>
 
