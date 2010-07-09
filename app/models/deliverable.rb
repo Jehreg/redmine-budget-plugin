@@ -38,11 +38,15 @@ class Deliverable < ActiveRecord::Base
   def score
     return self.progress - self.budget_ratio
   end
+
+  def timelogs
+    TimeEntry.find(:all, :conditions => {:deliverable_id => self.id}) + 
+    self.issues.collect(&:time_entries).flatten
+  end 
   
   def spent
     return 0 unless self.issues.size > 0
-    time_logs = self.issues.collect(&:time_entries).flatten
-    time_logs.collect(&:cost).sum 
+    self.timelogs.collect(&:cost).sum 
   end
   
   # Percentage of the deliverable that is compelte based on the progress of the
