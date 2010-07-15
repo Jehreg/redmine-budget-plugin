@@ -4,7 +4,7 @@ h2.title {  }
 #budget-list {  }
 
 table.list.deliverables { margin-top: 10px; }
-tr.deliverable { text-align: center; white-space: nowrap; }
+tr.deliverable { white-space: nowrap; }
 tr.deliverable td.subject, tr.deliverable td.category { white-space: normal; }
 tr.deliverable td.subject { text-align: left; }
 tr.deliverable td.score { text-align: right; padding-right: 10px;}
