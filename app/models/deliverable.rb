@@ -48,6 +48,10 @@ class Deliverable < ActiveRecord::Base
     return 0 unless self.issues.size > 0
     self.timelogs.collect(&:cost).sum 
   end
+
+  def name
+    return self.project.name + ' - ' + self.subject
+  end
   
   # Percentage of the deliverable that is compelte based on the progress of the
   # assigned issues.
