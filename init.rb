@@ -13,10 +13,12 @@ require 'dispatcher'
 require 'issue_patch'
 require 'query_patch'
 require 'project_patch'
+require 'time_entry_patch'
 Dispatcher.to_prepare do
   Issue.send(:include, IssuePatch)
   Query.send(:include, QueryPatch)
   Project.send(:include, ProjectPatch)
+  TimeEntry.send(:include, TimeEntryPatch)
 end
 
 # Hooks
