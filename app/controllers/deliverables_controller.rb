@@ -12,14 +12,14 @@ class DeliverablesController < ApplicationController
     @deliverable_count = Deliverable.count(:all, 
       { 
        :include => :project,
-       :conditions => @project.project_condition(Setting.display_subprojects_issues?),
+       :conditions => conditions,
       }
     )
     @deliverables = Deliverable.find(:all, 
       { 
        :include => :project,
-       :conditions => @project.project_condition(Setting.display_subprojects_issues?),
-       :order => 'projects.name, deliverables.subject'
+       :conditions => conditions,
+       :order => 'deliverables.number'
       }
     )
 
@@ -32,6 +32,8 @@ class DeliverablesController < ApplicationController
       format.html { render :action => 'index', :layout => !request.xhr? }
     end
   end
+
+
   
   # Action to preview the Deliverable description
   def preview
@@ -127,18 +129,17 @@ class DeliverablesController < ApplicationController
     flash[:notice] = l(:message_updated_issues, number_updated)
     redirect_to :action => 'index', :id => @project.id
   end
-  
-  def summary
-    if params[:display] == 'all'
-      conditions = nil
-    else
-      conditions = "due > now()"
-    end
-
-    @deliverables = Deliverable.find(:all, :conditions => conditions)
-  end
 
   private
+
+  def conditions
+    conditions = @project.project_condition(Setting.display_subprojects_issues?)
+
+    unless params[:year].nil?
+      conditions += " AND due = '#{params[:year]}'"
+    end
+  end
+
   def find_project
     if params[:id]
       @project = Project.find(params[:id])
