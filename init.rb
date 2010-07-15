@@ -46,10 +46,4 @@ Redmine::Plugin.register :budget_plugin do
   end
   
   menu :project_menu, :budget, {:controller => "deliverables", :action => 'index'}, :caption => :budget_title
-
-  menu(:top_menu,
-       :budget,
-       {:controller => 'deliverables', :action => 'summary'},
-       :caption => 'Agreements',
-       :if => User.current.admin?)
 end
