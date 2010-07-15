@@ -50,7 +50,7 @@ class Deliverable < ActiveRecord::Base
   end
 
   def name
-    return self.project.name + ' - ' + self.subject
+    return self.due.year.to_s  + ": " + self.project.name + ' - ' + self.subject
   end
   
   # Percentage of the deliverable that is compelte based on the progress of the

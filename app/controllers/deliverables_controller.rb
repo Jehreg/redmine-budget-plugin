@@ -13,22 +13,8 @@ class DeliverablesController < ApplicationController
       params[:year] = '2011-03-31'
     end
 
-    @deliverable_count = Deliverable.count(:all, 
-      { 
-       :include => :project,
-       :conditions => conditions,
-      }
-    )
-    @deliverables = Deliverable.find(:all, 
-      { 
-       :include => :project,
-       :conditions => conditions,
-       :order => 'deliverables.number'
-      }
-    )
-
     @deliverable = Deliverable.new
-
+    @deliverables = deliverables
     @budget = Budget.new(@deliverables, params[:year])
 
     respond_to do |format|
@@ -38,16 +24,12 @@ class DeliverablesController < ApplicationController
   
   # Saves a new Deliverable
   def create
-    if params[:deliverable][:type] == FixedDeliverable.name
-      @deliverable = FixedDeliverable.new(params[:deliverable])
-    elsif params[:deliverable][:type] == HourlyDeliverable.name
-      @deliverable = HourlyDeliverable.new(params[:deliverable])
-    else
-      @deliverable = Deliverable.new(params[:deliverable])
-    end
-    
+    params[:deliverable][:invoiced] = 0 if params[:deliverable][:invoiced].nil?
+    @deliverable = Deliverable.new(params[:deliverable])
     @deliverable.project = @project
-    @budget = Budget.new(@project.id)
+
+    @budget = Budget.new(deliverables, @deliverable.due)
+    
     respond_to do |format|
       if @deliverable.save
         @flash = l(:notice_successful_create)
@@ -127,9 +109,21 @@ class DeliverablesController < ApplicationController
 
   private
 
+  def deliverables
+    Deliverable.find(:all, 
+      { 
+       :include => :project,
+       :conditions => conditions,
+       :order => 'deliverables.number'
+      }
+    )
+  end
+
+
   def conditions
+    prev_year = (params[:year].to_datetime - 1.year) + 1.day
     conditions = @project.project_condition(Setting.display_subprojects_issues?)
-    conditions += " AND due = '#{params[:year]}'"
+    conditions += " AND due BETWEEN '#{prev_year}' AND '#{params[:year]}'"
   end
 
   def find_project
