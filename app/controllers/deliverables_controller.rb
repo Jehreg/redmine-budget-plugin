@@ -129,11 +129,13 @@ class DeliverablesController < ApplicationController
   end
   
   def summary
-    if params[:display] = 'all'
-      conditions = "due > now()"
+    if params[:display] == 'all'
+      conditions = nil
     else
-      @deliverables = Deliverable.find(:all, :conditions => "due > '2010-03-31'")
+      conditions = "due > now()"
     end
+
+    @deliverables = Deliverable.find(:all, :conditions => conditions)
   end
 
   private
