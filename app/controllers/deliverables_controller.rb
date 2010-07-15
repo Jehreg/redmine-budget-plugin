@@ -9,6 +9,10 @@ class DeliverablesController < ApplicationController
 
   # Main deliverable list
   def index
+    if params[:year].nil?
+      params[:year] = '2011-03-31'
+    end
+
     @deliverable_count = Deliverable.count(:all, 
       { 
        :include => :project,
@@ -23,22 +27,13 @@ class DeliverablesController < ApplicationController
       }
     )
 
-
     @deliverable = Deliverable.new
 
-    @budget = Budget.new(@project.id)
+    @budget = Budget.new(@deliverables, params[:year])
 
     respond_to do |format|
       format.html { render :action => 'index', :layout => !request.xhr? }
     end
-  end
-
-
-  
-  # Action to preview the Deliverable description
-  def preview
-    @text = params[:deliverable][:description]
-    render :partial => 'common/preview'
   end
   
   # Saves a new Deliverable
@@ -134,10 +129,7 @@ class DeliverablesController < ApplicationController
 
   def conditions
     conditions = @project.project_condition(Setting.display_subprojects_issues?)
-
-    unless params[:year].nil?
-      conditions += " AND due = '#{params[:year]}'"
-    end
+    conditions += " AND due = '#{params[:year]}'"
   end
 
   def find_project

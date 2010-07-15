@@ -1,3 +1,8 @@
 <h3><%= l(:budget_title) %></h3>
-<%= link_to l(:label_issue_view_all), { :controller => 'issues', :action => 'index', :project_id => @project, :set_filter => 1 } %><br />
+<% form_tag do %>
+  <label for="year">Fiscal Year:</label>
+  <%= select_tag :year, options_for_select([['2010/2011', '2011-03-31'], ['2009/2010', '2010-03-31']]) %> 
+  <input type="submit" value="Go">
+<% end %>
+<br />
 <%= link_to_function l(:label_new_deliverable), "$('new-deliverable').toggle();" if allowed_management? %><br />
