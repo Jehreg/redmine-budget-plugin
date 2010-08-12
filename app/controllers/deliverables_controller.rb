@@ -3,16 +3,13 @@ class DeliverablesController < ApplicationController
   layout 'base'
   before_filter :find_project, :get_settings
   before_filter :authorize, :except => :summary
+  before_filter :set_year
 
   helper :sort
   include SortHelper
 
   # Main deliverable list
   def index
-    if params[:year].nil?
-      params[:year] = '2011-03-31'
-    end
-
     @deliverable = Deliverable.new
     @deliverables = deliverables
     @budget = Budget.new(@deliverables, params[:year])
@@ -119,7 +116,6 @@ class DeliverablesController < ApplicationController
     )
   end
 
-
   def conditions
     prev_year = (params[:year].to_datetime - 1.year) + 1.day
     conditions = @project.project_condition(Setting.display_subprojects_issues?)
@@ -163,6 +159,12 @@ class DeliverablesController < ApplicationController
       return sorted.reverse! if session[@sort_name][:order] == 'desc'
     else
       return deliverables
+    end
+  end
+
+  def set_year
+    if params[:year].nil?
+      params[:year] = '2011-03-31'
     end
   end
 end
