@@ -45,7 +45,6 @@ class Deliverable < ActiveRecord::Base
   end 
   
   def spent
-    return 0 unless self.issues.size > 0
     self.timelogs.collect(&:cost).sum 
   end
 
