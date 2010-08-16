@@ -205,7 +205,7 @@ class Deliverable < ActiveRecord::Base
   end
 
   def to_s
-    self.subject
+    name
   end
   
   private
