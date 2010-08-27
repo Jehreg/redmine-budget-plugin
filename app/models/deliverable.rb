@@ -7,6 +7,8 @@ class Deliverable < ActiveRecord::Base
   belongs_to :project
   has_many :issues, :dependent => :nullify
 
+  named_scope :current, :conditions => ["due BETWEEN '2010-04-01' AND '2011-03-31'"]
+
   # Assign all the issues with +version_id+ to this Deliverable
   def assign_issues_by_version(version_id)
     version = Version.find_by_id(version_id)
@@ -49,7 +51,7 @@ class Deliverable < ActiveRecord::Base
   end
 
   def name
-    return self.due.year.to_s  + ": " + self.project.name + ' - ' + self.subject
+    to_s
   end
   
   # Percentage of the deliverable that is compelte based on the progress of the
@@ -205,7 +207,7 @@ class Deliverable < ActiveRecord::Base
   end
 
   def to_s
-    name
+    self.due.year.to_s  + ": " + self.project.name + ' - ' + self.subject
   end
   
   private
