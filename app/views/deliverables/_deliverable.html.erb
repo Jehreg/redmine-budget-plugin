@@ -10,12 +10,11 @@
       :title => l(:button_delete) %>
   </td>
 
-  <%= content_tag(:td, link_to(deliverable.project.name, "/projects/#{deliverable.project.id}")) %>
-  <%= content_tag(:td, link_to(h(deliverable.subject), "/deliverables/edit/#{deliverable.project.id}?deliverable_id=#{deliverable.id}"), {:class => 'subject', :align => 'center'}) %>
+  <%= content_tag(:td, link_to(h(deliverable), "/deliverables/edit/#{deliverable.project.id}?deliverable_id=#{deliverable.id}"), {:class => 'subject', :align => 'center'}) %>
   <%= content_tag(:td, h(deliverable.number), {:align => 'center'}) %>
   <%= content_tag(:td, number_to_currency(deliverable.forecast), {:align => 'center'}) %>
   <%= content_tag(:td, number_to_currency(deliverable.budget), {:align => 'center'}) %>
-  <%= content_tag(:td, link_to(number_to_currency(deliverable.spent), "/timesheet/report?timesheet[period_type]=0&timesheet[period]=all&timesheet[deliverable_id]=#{deliverable.id}"), {:align => 'center'}) %>
+  <%= content_tag(:td, link_to(number_to_currency(deliverable.spent), "/timesheet/report?timesheet[period_type]=0&timesheet[period]=all&timesheet[deliverables][]=#{deliverable.id}"), {:align => 'center'}) %>
   <%= content_tag(:td, number_to_currency(deliverable.invoiced), {:align => 'center'}) %>
   <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_summary_row, { :deliverable => deliverable }) %>
 </tr>

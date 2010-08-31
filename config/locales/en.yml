@@ -10,7 +10,7 @@ en:
   label_subject: Subject
   label_number: Number
   label_type: Type 
-  label_budget: Agreed Budget
+  label_budget: Labour Budget
   label_spent: Value of Work Done
   label_invoiced: Actual Invoiced Amount
   label_forecast: Forecast
