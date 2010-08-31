@@ -2,10 +2,10 @@
     <%= error_messages_for 'deliverable' %>
     <div class="box">
       <div class="splitcontentleft">
-        <p><%= f.text_field :subject, :label => 'Subject', :required => true %></p>
-        <p><%= f.text_field :number, :label => 'Number', :required => true %></p>
-        <p><%= f.text_field :budget, :label => 'Amount', :required => true %></p>
-        <p><%= f.text_field :invoiced, :label => 'Invoiced' %></p>
+        <p><%= f.text_field :subject, :label => l(:label_subject), :required => true %></p>
+        <p><%= f.text_field :number, :label => l(:label_number), :required => true %></p>
+        <p><%= f.text_field :budget, :label => l(:label_subject), :required => true %></p>
+        <p><%= f.text_field :invoiced, :label => l(:label_invoiced) %></p>
 
         <p>
           <%= f.select :category, 

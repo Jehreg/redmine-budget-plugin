@@ -7,13 +7,13 @@ en:
   label_agreement: Agreement
   label_project: Project
   label_progress: Progress
-  label_subject: Agreement 
+  label_subject: Subject
   label_number: Number
   label_type: Type 
   label_budget: Budget
-  label_spent: Spent
-  label_invoiced: Invoiced
-  label_remaining: Remaining
+  label_spent: VWD
+  label_invoiced: Actual
+  label_remaining: Variance
   label_update_deliverable: Update Agreement
   field_deliverable: Agreement
   field_due: Date
