@@ -23,7 +23,7 @@ class BudgetIssueHook  < Redmine::Hook::ViewListener
   #
   def view_issues_form_details_bottom(context = { })
     if context[:project].module_enabled?('budget_module')
-      select = context[:form].select :deliverable_id, context[:project].ancestor_deliverables.collect { |d| ["#{d.name}", d.id] }, :include_blank => true 
+      select = context[:form].select :deliverable_id, context[:project].ancestor_deliverables.collect { |d| ["#{d}", d.id] }, :include_blank => true 
       return "<p>#{select}</p>"
     else
       return ''
