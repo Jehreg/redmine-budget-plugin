@@ -6,6 +6,7 @@ class Deliverable < ActiveRecord::Base
   
   belongs_to :project
   has_many :issues, :dependent => :nullify
+  has_many :time_entries, :dependent => :nullify
 
   named_scope :current, :conditions => ["due BETWEEN '2010-04-01' AND '2011-03-31'"]
 
