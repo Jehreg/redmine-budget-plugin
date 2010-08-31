@@ -111,7 +111,7 @@ class DeliverablesController < ApplicationController
       { 
        :include => :project,
        :conditions => conditions,
-       :order => 'deliverables.number'
+       :order => 'deliverables.number ASC'
       }
     )
   end

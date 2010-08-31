@@ -10,9 +10,10 @@ en:
   label_subject: Subject
   label_number: Number
   label_type: Type 
-  label_budget: Budget
-  label_spent: VWD
-  label_invoiced: Actual
+  label_budget: Agreed Budget
+  label_spent: Value of Work Done
+  label_invoiced: Actual Invoiced Amount
+  label_forecast: Forecast
   label_remaining: Variance
   label_update_deliverable: Update Agreement
   field_deliverable: Agreement

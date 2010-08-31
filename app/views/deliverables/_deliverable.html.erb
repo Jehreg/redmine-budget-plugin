@@ -1,18 +1,21 @@
 <% css = cycle('odd','even') %>
 <tr id="deliverable-<%= deliverable.id %>" class="deliverable <%= css %>">
   <td class="actions">
-    <%= link_to(l(:label_issue_plural), :action => 'issues', :id => deliverable.project_id, :deliverable_id => deliverable.id) -%>
-    <%= link_to('Time', :controller => 'timesheet', :action => 'report', :project_id => deliverable.project_id, :deliverable_id => deliverable.id) -%>
-    <%= link_to(l(:button_edit), :action => 'edit', :id => deliverable.project_id, :deliverable_id => deliverable.id) if allowed_management? -%>
-    <%= link_to(l(:button_delete), { :action => 'destroy', :id => deliverable.project_id, :deliverable_id => deliverable.id}, :confirm => l(:text_are_you_sure)) if allowed_management? %>
+    <%= link_to image_tag('edit.png'), { :action => 'edit', :id => deliverable.project_id, :deliverable_id => deliverable.id }, 
+      :title => l(:button_edit) %>
+
+    <%= link_to image_tag('delete.png'), { :action => 'destroy', :id => deliverable.project_id, :deliverable_id => deliverable.id }, 
+      :confirm => l(:text_are_you_sure), 
+      :method => :post, 
+      :title => l(:button_delete) %>
   </td>
 
   <%= content_tag(:td, link_to(deliverable.project.name, "/projects/#{deliverable.project.id}")) %>
-  <%= content_tag(:td, link_to(h(deliverable.subject), "/deliverables/edit/#{deliverable.project.id}?deliverable_id=#{deliverable.id}"), :class => 'subject') %>
-  <%= content_tag(:td, h(deliverable.number)) %>
-  <%= content_tag(:td, h(deliverable.category)) %>
-  <%= content_tag(:td, number_to_currency(deliverable.budget)) %>
-  <%= content_tag(:td, number_to_currency(deliverable.spent)) %>
-  <%= content_tag(:td, number_to_currency(deliverable.invoiced)) %>
+  <%= content_tag(:td, link_to(h(deliverable.subject), "/deliverables/edit/#{deliverable.project.id}?deliverable_id=#{deliverable.id}"), {:class => 'subject', :align => 'center'}) %>
+  <%= content_tag(:td, h(deliverable.number), {:align => 'center'}) %>
+  <%= content_tag(:td, number_to_currency(deliverable.forecast), {:align => 'center'}) %>
+  <%= content_tag(:td, number_to_currency(deliverable.budget), {:align => 'center'}) %>
+  <%= content_tag(:td, link_to(number_to_currency(deliverable.spent), "/timesheet/report?timesheet[period_type]=0&timesheet[period]=all&timesheet[deliverable_id]=#{deliverable.id}"), {:align => 'center'}) %>
+  <%= content_tag(:td, number_to_currency(deliverable.invoiced), {:align => 'center'}) %>
   <%= Redmine::Hook.call_hook(:plugin_budget_view_deliverable_summary_row, { :deliverable => deliverable }) %>
 </tr>
