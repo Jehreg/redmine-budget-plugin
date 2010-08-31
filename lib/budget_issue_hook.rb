@@ -8,7 +8,7 @@ class BudgetIssueHook  < Redmine::Hook::ViewListener
   #
   def view_issues_show_details_bottom(context = { })
     if context[:project].module_enabled?('budget_module')
-      data = "<td><b>Deliverable :</b></td><td>#{html_escape context[:issue].deliverable.subject unless context[:issue].deliverable.nil?}</td>"
+      data = "<td><b>Agreement:</b></td><td>#{html_escape context[:issue].deliverable.subject unless context[:issue].deliverable.nil?}</td>"
       return "<tr>#{data}<td></td></tr>"
     else
       return ''
@@ -46,6 +46,19 @@ class BudgetIssueHook  < Redmine::Hook::ViewListener
     else
       return ''
     end
+  end
+
+  def controller_issues_new_before_save(context={})
+    if context[:params] && context[:params][:issue]
+      if context[:params][:issue][:deliverable_id].present?
+        deliverable = Deliverable.find(context[:params][:issue][:deliverable_id])
+        context[:issue].deliverable = deliverable
+      else
+        context[:issue].deliverable = nil
+      end
+    end
+
+    return ''
   end
   
   # Saves the Deliverable assignment to the issue
