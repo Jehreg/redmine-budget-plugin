@@ -20,3 +20,4 @@ en:
   field_due: Date
   field_project_manager_signoff: Project manager signed
   field_client_signoff: Client signed
+  field_overtime: Overtime
