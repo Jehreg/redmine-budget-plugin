@@ -5,4 +5,4 @@
   <input type="submit" value="Go">
 <% end %>
 <br />
-<%= link_to_function l(:label_new_deliverable), "$('new-deliverable').toggle();" if allowed_management? %><br />
+<%= link_to(l(:label_new_deliverable), :controller => 'deliverables', :action => 'new', :id => @project.id) if allowed_management? %><br />

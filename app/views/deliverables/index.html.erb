@@ -2,17 +2,6 @@
   <%= render :partial => 'budget', :object => @budget %>
 </div>
 
-<% if allowed_management? %>
-<div id="new-deliverable" style="display:none;">
-  <h2><%= l(:label_new_deliverable) %></h2>
-  <% remote_form_for :deliverable, @deliverable, :url => {:controller => 'deliverables', :action => 'create', :id => @project },
-                     :method => :post, :builder => TabularFormBuilder, :lang => current_language,
-                     :html => {:multipart => true, :id => 'deliverable-form', :class => 'tabular'} do |f| %>
-    <%= render :partial => 'form', :locals => { :mode => :create, :f => f } %>
-  <% end %>
-</div>
-<% end %>
-
 <div id="budget-list">
 <% if @deliverables.empty? %>
   <p class="nodata"><%= l(:label_no_data) %></p>

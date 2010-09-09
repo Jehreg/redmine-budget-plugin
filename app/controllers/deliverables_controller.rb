@@ -7,6 +7,8 @@ class DeliverablesController < ApplicationController
 
   helper :sort
   include SortHelper
+  helper :attachments
+  include AttachmentsHelper
 
   # Main deliverable list
   def index
@@ -17,6 +19,11 @@ class DeliverablesController < ApplicationController
     respond_to do |format|
       format.html { render :action => 'index', :layout => !request.xhr? }
     end
+  end
+
+  def new
+    @deliverable = Deliverable.new
+    @deliverable.project = @project
   end
   
   # Saves a new Deliverable
@@ -29,11 +36,12 @@ class DeliverablesController < ApplicationController
     
     respond_to do |format|
       if @deliverable.save
+        attachments = Attachment.attach_files(@deliverable, params[:attachments])
+        render_attachment_warning_if_needed(@deliverable)
         @flash = l(:notice_successful_create)
-        format.html { redirect_to :action => 'index' }
-        format.js { render :action => 'create.js.rjs'}
+        format.html { redirect_to :action => 'index', :id => @project.id }
       else
-        format.js { render :action => 'create_error.js.rjs'}
+        format.html { render :action => 'new', :id => @project.id}
       end
     end
 
@@ -48,20 +56,16 @@ class DeliverablesController < ApplicationController
   def update
     @deliverable = Deliverable.find(params[:deliverable_id])
     
-    if params[:deliverable][:type] != @deliverable.class
-      @deliverable = @deliverable.change_type(params[:deliverable][:type])
-    end
-    
     respond_to do |format|
       if @deliverable.update_attributes(params[:deliverable])
+        Attachment.attach_files(@deliverable, params[:attachments])
+        render_attachment_warning_if_needed(@deliverable)
         @flash = l(:notice_successful_create)
         format.html { redirect_to :action => 'index', :id => @project.id }
       else
         format.html { render :action => 'edit', :id => @project.id}
       end
     end
-
-    
   end
   
   # Removes the Deliverable
