@@ -10,6 +10,10 @@ module TimeEntryPatch
       def billable_hours
         deliverable.nil? ? 0 : hours
       end
+
+      def non_billable_hours
+        hours - billable_hours
+      end
     end
   end
 end
