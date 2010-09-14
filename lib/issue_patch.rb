@@ -15,7 +15,7 @@ module IssuePatch
       after_save :update_time_entries
 
       def update_time_entries
-        TimeEntry.update_all("deliverable_id = #{deliverable_id}", "issue_id = #{id}")
+        TimeEntry.update_all("deliverable_id = #{deliverable_id}", "issue_id = #{id}") if deliverable_id.is_a? Numeric
       end
     end
 
