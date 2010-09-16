@@ -3,15 +3,18 @@
 </div>
 
 <div id="budget-list">
-<% if @deliverables.empty? %>
-  <p class="nodata"><%= l(:label_no_data) %></p>
-<% else %>
-  <%= render :partial => 'list', :locals => { :deliverables => @deliverables} %>
+  <h2>Sustain Agreements</h2>
+  <%= render :partial => 'list', :locals => {:deliverables => @deliverables.select{|d| d.category == 'Sustain' }} %>
 </div>
-<% end %>
+
+<div id="budget-list">
+  <h2>Change Agreements</h2>
+  <%= render :partial => 'list', :locals => {:deliverables => @deliverables.select{|d| d.category == 'Change' }} %>
+</div>
+
 
 <% content_for :sidebar do %>
-    <%= render :partial => 'deliverables/sidebar' %>
+  <%= render :partial => 'deliverables/sidebar' %>
 <% end %>
 
 <% content_for :header_tags do %>
