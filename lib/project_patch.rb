@@ -11,7 +11,7 @@ module ProjectPatch
       has_many :deliverables
 
       def ancestor_deliverables
-        (deliverables + ancestors.map{|a| a.deliverables}.flatten).uniq 
+        (deliverables + ancestors.map{|a| a.deliverables}.flatten).uniq & Deliverable.current 
       end
     end
   end
