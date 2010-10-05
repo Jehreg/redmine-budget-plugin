@@ -12,9 +12,7 @@
         <p><%= f.text_field :number, :label => l(:label_number), :required => true %></p>
 
         <p>
-          <%= f.select :category, 
-            options_for_select(['Change', 'Sustain']), 
-            :label => 'Type' %>
+          <%= f.select :category, options_for_select(['Change', 'Sustain'], @deliverable.category) %>
         </p>
 
         <p>
